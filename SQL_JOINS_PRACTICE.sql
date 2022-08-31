@@ -1,6 +1,6 @@
----------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 -- CREATE TABLES 
--- DROP TABLE EmployeeDemographics
+--DROP TABLE EmployeeDemographics
 Create Table EmployeeDemographics
 (EmployeeID int, FirstName VARCHAR(25), LastName VARCHAR(25), Age int, Gender  VARCHAr(25))
 insert INTO EmployeeDemographics
@@ -31,7 +31,7 @@ Values (1001, 'Salesman', 45000),
 (1009, 'Accountant', 42000),
 (1010, NULL, 47000),
 (Null, 'Salesman', 43000)
----------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 --VIEW TABLES
 select * from EmployeeDemographics
 select * from EmployeeSalary
@@ -42,6 +42,7 @@ From EmployeeDemographics
 inner join EmployeeSalary
 	on EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
 
+--FULL OUTER INCLUSIVE 
 --FULL OUTER JOIN WILL RETURN ALL OF THE VALUES (for employeeID from both tables)
 Select *
 From EmployeeDemographics
@@ -80,6 +81,29 @@ Right outer join EmployeeSalary
 select * from EmployeeDemographics
 select * from EmployeeSalary
 
+--Full OUTER EXCLUSIVE
+SELECT *
+FROM EmployeeDemographics
+FULL OUTER JOIN EmployeeSalary
+	ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE EmployeeDemographics.EmployeeID is NULL or EmployeeSalary.EmployeeID is NULL
+
+--LEFT EXCLUSIVE
+--RETURNS LEFT TABLE UNIQUE VALUES
+SELECT *
+FROM EmployeeDemographics
+LEFT OUTER JOIN EmployeeSalary
+	ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE EmployeeSalary.EmployeeID is NULL
+
+--RIGHT EXCLUSIVE
+--RETURNS RIGHT TABLE UNIQUE VALUES
+SELECT *
+FROM EmployeeDemographics
+RIGHT OUTER JOIN EmployeeSalary
+	ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE EmployeeDemographics.EmployeeID is NULL
+
 --PROBLEM: MICHAEL SCOTT NEEDS TO REDUCE THE SALRAY OF THE HIGHEST EARNER NOT INCLUDING HIMSELF
 -- FULL VIEW
 Select EmployeeID,FirstName, LastName, Salary
@@ -94,4 +118,5 @@ inner join EmployeeSalary
 where FirstName<> 'Michael'
 order by Salary DESC
 --POOR DWIGHT
+--------------------------------------------------------------------------------------------
 --END OF CODE
